@@ -123,11 +123,11 @@ class Preprocess:
             #     'Failed to convert Column to Datetime')
             sys.exit(1)
 
-    def convert_to_float(self, df, column):
+    def convert_to_numeric(self, df, column):
         """Convert column to datetime."""
         try:
             # self.logger.info('Converting Column to Datetime')
-            df[column] = pd.to_float(df[column])
+            df[column] = pd.to_numeric(df[column], downcast="float")
             return df
         except Exception:
             # self.logger.exception(

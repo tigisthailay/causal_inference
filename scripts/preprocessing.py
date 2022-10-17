@@ -123,6 +123,17 @@ class Preprocess:
             #     'Failed to convert Column to Datetime')
             sys.exit(1)
 
+    def convert_to_float(self, df, column):
+        """Convert column to datetime."""
+        try:
+            # self.logger.info('Converting Column to Datetime')
+            df[column] = pd.to_float(df[column])
+            return df
+        except Exception:
+            # self.logger.exception(
+            #     'Failed to convert Column to Datetime')
+            sys.exit(1)
+
     def get_numerical_columns(self, df):
         """Get numerical columns from dataframe."""
         try:
@@ -156,22 +167,6 @@ class Preprocess:
             #     'Failed to join two Dataframes')
             sys.exit(1)
 
-    def extract_fields_date(self, df, date_column):
-        """Extract fields from date column."""
-        try:
-            # self.logger.info('Extracting Fields from Date Column')
-            df['Year'] = df[date_column].dt.year
-            df['Month'] = df[date_column].dt.month
-            df['Day'] = df[date_column].dt.day
-            df['DayOfWeek'] = df[date_column].dt.dayofweek
-            df['weekday'] = df[date_column].dt.weekday
-            df['weekofyear'] = df[date_column].dt.weekofyear
-            df['weekend'] = df[date_column].apply(self.is_weekend)
-            return df
-        except Exception:
-            # self.logger.exception(
-            #     'Failed to Extract Fields from Date Column')
-            sys.exit(1)
             
     def label_encode(self, df, columns):
         """Label encode the target variable  """
@@ -194,15 +189,4 @@ class Preprocess:
         return label_encoded_columns
 
     
-    # check if it's weekend
-    def is_weekend(self, date):
-        """Check if it's weekend."""
-        try:
-            # self.logger.info('Checking if it\'s weekend')
-            return 1 if (date.weekday() > 4 or date.weekday() < 1) else 0
-        except Exception:
-            # self.logger.exception(
-            #     'Failed to Check if it\'s weekend')
-            sys.exit(1)
-
     
